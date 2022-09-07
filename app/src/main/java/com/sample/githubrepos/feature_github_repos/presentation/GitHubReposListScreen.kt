@@ -11,13 +11,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.sample.githubrepos.core.utils.TestTags
 import com.sample.githubrepos.core.utils.print
 import com.sample.githubrepos.feature_github_repos.presentation.components.GitHubReposListTopBar
 import com.sample.githubrepos.feature_github_repos.presentation.components.TaskItem
@@ -52,7 +50,6 @@ fun GitHubReposListScreen(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
-                    .testTag(TestTags.Loading)
             ){
                 CircularProgressIndicator()
             }

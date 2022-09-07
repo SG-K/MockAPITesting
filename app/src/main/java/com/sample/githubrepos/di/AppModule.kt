@@ -1,9 +1,6 @@
 package com.sample.githubrepos.di
 
 import com.sample.githubrepos.BuildConfig
-import com.sample.githubrepos.core.ideling_resources.ComposeCoutingIdleingResource
-import com.sample.githubrepos.core.ideling_resources.ComposeOkHttp3IdlingResource
-import com.sample.githubrepos.core.utils.GitHubConstants
 import com.sample.githubrepos.feature_github_repos.data.data_source.GitHubAPIService
 import com.sample.githubrepos.feature_github_repos.data.repository.GitHubRepositoryImpl
 import com.sample.githubrepos.feature_github_repos.domain.repository.GitHubRepository

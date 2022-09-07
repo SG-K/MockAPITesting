@@ -4,7 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sample.githubrepos.core.ideling_resources.ComposeCoutingIdleingResource
 import com.sample.githubrepos.core.utils.print
 import com.sample.githubrepos.feature_github_repos.domain.model.GitHubRepoData
 import com.sample.githubrepos.feature_github_repos.domain.use_case.GetGitHubReposUseCase
@@ -16,7 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class GitHubReposViewModel @Inject constructor(
     private val gitHubReposUseCase: GetGitHubReposUseCase,
-    private val composeCoutingIdleingResource: ComposeCoutingIdleingResource
 ) : ViewModel() {
 
     private val _reposlist = mutableStateOf(GitHubReposState(emptyList(), true))
@@ -30,7 +28,6 @@ class GitHubReposViewModel @Inject constructor(
                 isLoading = true
             )
             try {
-                composeCoutingIdleingResource.increment()
                 gitHubReposUseCase.invoke().also { list ->
                     "tasks list size - ${list.size}".print()
                     _reposlist.value = reposList.value.copy(
@@ -44,10 +41,6 @@ class GitHubReposViewModel @Inject constructor(
                     isLoading = false
                 )
                 e.printStackTrace()
-            } finally {
-                if (!composeCoutingIdleingResource.isIdleNow){
-                    composeCoutingIdleingResource.decrement()
-                }
             }
         }
     }
