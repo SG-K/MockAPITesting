@@ -40,7 +40,7 @@ class GitHubReposListScreenIdlingResourceTest {
 
     // Integration test to test API calls with composeCoutingIdleingResource intenrally using espresso idleresource regerting
     @Test
-    fun getListIdlingResource_checkAndroidServiceRepoSecondVarient(){
+    fun getListIdlingResource_checkAndroidServiceRepo(){
         composeRule.onNodeWithTag(TestTags.Loading).assertExists()
         composeRule.onNodeWithTag(TestTags.Loading).assertIsDisplayed()
         composeRule.registerIdlingResource(composeCoutingIdleingResource)
@@ -50,7 +50,7 @@ class GitHubReposListScreenIdlingResourceTest {
 
     // Integration test to test API calls with composeOkHttp3IdlingResource intenrally using espresso idleresource regerting
     @Test
-    fun getListIdlingResourceOkHttp_checkAndroidServiceRepoSecondVarient(){
+    fun getListIdlingResourceOkHttp_checkAndroidServiceRepo(){
         composeRule.onNodeWithTag(TestTags.Loading).assertExists()
         composeRule.onNodeWithTag(TestTags.Loading).assertIsDisplayed()
         composeRule.registerIdlingResource(composeOkHttp3IdlingResource)

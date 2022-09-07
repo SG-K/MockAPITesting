@@ -46,7 +46,7 @@ class GitHubReposListScreenTest{
 
     // Integration test to test API calls with MockWebServer
     @Test
-    fun getListWaitUnit_checkAndroidServiceRepo(){
+    fun getListMockServer_checkAndroidServiceRepo(){
         composeRule.onNodeWithText("Android-Service").assertExists()
         composeRule.onNodeWithText("Android-Service").assertIsDisplayed()
     }
