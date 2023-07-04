@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.sample.githubrepos.core.utils.TestTags
+import com.sample.githubrepos.core.utils.network.NetworkMonitor
 import com.sample.githubrepos.core.utils.print
 import com.sample.githubrepos.feature_github_repos.presentation.components.GitHubReposListTopBar
 import com.sample.githubrepos.feature_github_repos.presentation.components.TaskItem
@@ -32,6 +33,7 @@ fun GitHubReposListScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     var progress by remember { mutableStateOf(0.1f) }
+    val networkState = viewModel.isOnlineViewmodel.collectAsState(initial = true)
 
     val animatedProgress = animateFloatAsState(
         targetValue = progress,
@@ -58,7 +60,10 @@ fun GitHubReposListScreen(
             }
         }
 
-        AnimatedVisibility(visible = state.reposList.isEmpty() && !state.isLoading) {
+        AnimatedVisibility(
+            visible =( state.reposList.isEmpty() && !state.isLoading )
+                    || !networkState.value
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -67,14 +72,18 @@ fun GitHubReposListScreen(
             ) {
 
                 Text(
-                    text = "No Repository to show up",
+                    text = if (networkState.value){
+                        "No Repository to show up"
+                    } else { "⚠️ Network Issue" },
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
                     modifier = Modifier
                         .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
                 )
                 Text(
-                    text = "Add new repositories from GitHub site",
+                    text = if (networkState.value){
+                        "Add new repositories from GitHub site"
+                    } else { " Please check your internet connection and try again" },
                     fontSize = 14.sp,
                     fontWeight = FontWeight(300),
                     modifier = Modifier
@@ -84,7 +93,7 @@ fun GitHubReposListScreen(
             }
         }
 
-        AnimatedVisibility(visible = state.reposList.isNotEmpty()) {
+        AnimatedVisibility(visible = state.reposList.isNotEmpty() && networkState.value) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.reposList) { task ->
                     TaskItem(

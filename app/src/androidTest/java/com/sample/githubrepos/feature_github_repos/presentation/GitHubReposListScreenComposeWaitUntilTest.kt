@@ -24,8 +24,6 @@ class GitHubReposListScreenComposeWaitUntilTest {
     @get:Rule(order = 1)
     val composeRule = createAndroidComposeRule(MainActivity::class.java)
 
-    val defaultWaitTime = 10000L
-
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -37,7 +35,7 @@ class GitHubReposListScreenComposeWaitUntilTest {
         composeRule.onNodeWithTag(TestTags.Loading).assertExists()
         composeRule.onNodeWithTag(TestTags.Loading).assertIsDisplayed()
 
-        composeRule.waitUntil(defaultWaitTime) {
+        composeRule.waitUntil(5000) {
             composeRule
                 .onAllNodesWithTag(TestTags.Loading)
                 .fetchSemanticsNodes().isEmpty()
